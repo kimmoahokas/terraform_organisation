@@ -20,6 +20,30 @@ This model forces each environment to be pretty much identical, as terraform cod
 
 Based on advice from https://aws-blog.de/2019/05/managing-multiple-stages-with-terraform.html
 
+### Structure ###
+
+```
+.
+├── app1
+│   ├── environments
+│   │   ├── dev
+│   │   │   ├── backend.config
+│   │   │   └── terraform.tfvars
+│   │   └── prod
+│   │       ├── backend.config
+│   │       └── terraform.tfvars
+│   └── main.tf
+└── infrastructure
+    ├── environments
+    │   ├── dev
+    │   │   ├── backend.config
+    │   │   └── terraform.tfvars
+    │   └── prod
+    │       ├── backend.config
+    │       └── terraform.tfvars
+    └── main.tf
+```
+
 ### Changing between environments ###
 
 ```shell
@@ -35,6 +59,28 @@ terraform apply -var-file=environments/dev/terraform.tfvars
 This approach requires some code duplication, but is officially supported and rather easy to follow. The command are simple and don't need any special flags. If needed, the environments can differ from each other. It's outright evident from the shell working path on what environment or app you are working on.
 
 Based on advice from https://github.com/antonbabenko/terraform-best-practices/tree/master/examples/large-terraform
+
+### Structure ###
+
+```
+.
+├── app1
+│   ├── dev
+│   │   └── dev-app1.tf
+│   ├── modules
+│   │   └── app1-service
+│   │       └── main.tf
+│   └── prod
+│       └── prod-app1.tf
+└── infrastructure
+    ├── dev
+    │   └── dev-infra.tf
+    ├── modules
+    │   └── vpc
+    │       └── main.tf
+    └── prod
+        └── prod-infra.tf
+```
 
 ### Changing between environments ###
 
