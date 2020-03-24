@@ -1,6 +1,6 @@
 ﻿# Terraform code organization #
 
-This repo contains two alternative approaches for structuring terraform code with multiple configurations. There are 2 environments, dev and prod, that both have base infrastructure and 1 application. Both environments have separate s3 backends so that it's possible to give certain people access to dev but not to prod environment.
+This repo contains two alternative approaches for structuring terraform code with multiple configurations. There are 2 environments, dev and prod, that both have base infrastructure and 1 application. Both environments have separate s3 backends so that it's possible to give certain people access to dev but not to prod environment etc.
 
 The configurations are not complete and can't be run as such. But hopefully enough to illustrate the point and compare the differences between these approaches.
 
@@ -25,30 +25,29 @@ Based on advice from https://aws-blog.de/2019/05/managing-multiple-stages-with-t
 ```
 .
 ├── app1
-│   ├── environments
-│   │   ├── dev
-│   │   │   ├── backend.config
-│   │   │   └── terraform.tfvars
-│   │   └── prod
-│   │       ├── backend.config
-│   │       └── terraform.tfvars
-│   └── main.tf
+│   ├── configs
+│   │   ├── dev-backend.config
+│   │   ├── dev-vars.tfvars
+│   │   ├── prod
+│   │   ├── prod-backend.config
+│   │   └── prod-vars.tfvars
+│   └── main.tf
 └── infrastructure
-    ├── environments
-    │   ├── dev
-    │   │   ├── backend.config
-    │   │   └── terraform.tfvars
-    │   └── prod
-    │       ├── backend.config
-    │       └── terraform.tfvars
-    └── main.tf
+    ├── configs
+    │   ├── dev-backend.config
+    │   ├── dev-vars.tfvars
+    │   ├── prod-backend.config
+    │   └── prod-vars.tfvars
+    ├── main.tf
+    └── modules
+        └── vpc
+            └── main.tf
 ```
 
 ### Changing between environments ###
 
 ```shell
 cd infrastructure
-export AWS_PROFILE=dev-admin
 terraform init -reconfigure -backend-config=environments/dev/backend.config
 terraform plan -var-file=environments/dev/terraform.tfvars
 terraform apply -var-file=environments/dev/terraform.tfvars
