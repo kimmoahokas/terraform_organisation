@@ -1,0 +1,1 @@
+../root-module-shared/outputs.tf

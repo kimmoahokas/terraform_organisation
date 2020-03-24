@@ -1,19 +1,10 @@
 terraform {
-  required_version = "~>0.12.23"
-  required_providers {
-    aws = "~> 2.53"
-  }
-
   backend "s3" {
     bucket      = "dev-terraform"
     aws_profile = "dev_admin"
     key         = "base_infra"
     region      = "eu-west-1"
   }
-}
-
-provider "aws" {
-  region = "eu-west-1"
 }
 
 module "vpc" {
@@ -27,4 +18,3 @@ module "vpc" {
   name = "dev"
   cidr = "10.0.0.0/16"
 }
-

@@ -57,6 +57,8 @@ terraform apply -var-file=environments/dev/terraform.tfvars
 
 This approach requires some code duplication, but is officially supported and rather easy to follow. The command are simple and don't need any special flags. If needed, the environments can differ from each other. It's outright evident from the shell working path on what environment or app you are working on.
 
+To reduce amount of code deduplication, the root modules in each environment (for example `infrastructure/dev`) share some common terraform configuration. the shared parts are in root-modules-shared folder and then linked to each of the environments.
+
 Based on advice from https://github.com/antonbabenko/terraform-best-practices/tree/master/examples/large-terraform
 
 ### Structure ###
@@ -73,12 +75,22 @@ Based on advice from https://github.com/antonbabenko/terraform-best-practices/tr
 │       └── prod-app1.tf
 └── infrastructure
     ├── dev
-    │   └── dev-infra.tf
+    │   ├── dev-infra.tf
+    │   ├── outputs.tf -> ../root-module-shared/outputs.tf
+    │   ├── providers.tf -> ../root-module-shared/providers.tf
+    │   └── versions.tf -> ../root-module-shared/versions.tf
     ├── modules
     │   └── vpc
     │       └── main.tf
-    └── prod
-        └── prod-infra.tf
+    ├── prod
+    │   ├── outputs.tf -> ../root-module-shared/outputs.tf
+    │   ├── prod-infra.tf
+    │   ├── providers.tf -> ../root-module-shared/providers.tf
+    │   └── versions.tf -> ../root-module-shared/versions.tf
+    └── root-module-shared
+        ├── outputs.tf
+        ├── providers.tf
+        └── versions.tf
 ```
 
 ### Changing between environments ###
