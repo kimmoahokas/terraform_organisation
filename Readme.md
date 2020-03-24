@@ -48,9 +48,9 @@ Based on advice from https://aws-blog.de/2019/05/managing-multiple-stages-with-t
 
 ```shell
 cd infrastructure
-terraform init -reconfigure -backend-config=environments/dev/backend.config
-terraform plan -var-file=environments/dev/terraform.tfvars
-terraform apply -var-file=environments/dev/terraform.tfvars
+terraform init -reconfigure -backend-config=configs/dev-backend.config
+terraform plan -var-file=configs/dev-vars.tfvars
+terraform apply -var-file=configs/dev-vars.tfvars
 ```
 
 ## Alternative 2: Each environment as a terraform root module ##
