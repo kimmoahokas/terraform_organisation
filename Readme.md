@@ -28,7 +28,6 @@ Based on advice from https://aws-blog.de/2019/05/managing-multiple-stages-with-t
 │   ├── configs
 │   │   ├── dev-backend.config
 │   │   ├── dev-vars.tfvars
-│   │   ├── prod
 │   │   ├── prod-backend.config
 │   │   └── prod-vars.tfvars
 │   └── main.tf
@@ -60,6 +59,11 @@ This approach requires some code duplication, but is officially supported and ra
 To reduce amount of code deduplication, the root modules in each environment (for example `infrastructure/dev`) share some common terraform configuration. the shared parts are in root-modules-shared folder and then linked to each of the environments.
 
 Based on advice from https://github.com/antonbabenko/terraform-best-practices/tree/master/examples/large-terraform
+
+### Failure modes ###
+
+- You forget to add module block to certain environment config file when adding modules. No harm done, nothing should break
+- Changes to a module can't be pushed to all environments at the same time. Use tagged versions of modules in staging/production
 
 ### Structure ###
 
