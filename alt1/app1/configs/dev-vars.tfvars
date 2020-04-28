@@ -1,1 +1,1 @@
-﻿environment_name = "dev"
+environment_name = "dev"

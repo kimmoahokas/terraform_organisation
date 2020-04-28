@@ -7,7 +7,7 @@ terraform {
   backend "s3" {
     bucket      = "prod-terraform"
     aws_profile = "prod_admin"
-    key         = "app1"
+    key         = "app1.tfstate"
     region      = "eu-west-1"
   }
 }
@@ -28,7 +28,7 @@ data "terraform_remote_state" "infra" {
 }
 
 module "app1-service" {
-  source = "../modules/app1-service"
+  source = "../../modules/app1-service"
   name   = "app1-prod"
   # get the VPC ID from dev environment infrastructure terraform config
   vpc = data.terraform_remote_state.infra.outputs.vpc_id

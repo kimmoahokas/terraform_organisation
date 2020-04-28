@@ -17,8 +17,8 @@ provider "aws" {
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "2.31.0"
-  name = var.environment_name
-  cidr = var.vpc_cidr
+  name    = var.environment_name
+  cidr    = var.vpc_cidr
   # In reality the module would need more parameters to work.
 }
 

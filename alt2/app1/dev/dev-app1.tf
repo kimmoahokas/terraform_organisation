@@ -7,7 +7,7 @@ terraform {
   backend "s3" {
     bucket      = "dev-terraform"
     aws_profile = "dev_admin"
-    key         = "app1"
+    key         = "app1.tfstate"
     region      = "eu-west-1"
   }
 }

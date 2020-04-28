@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
     bucket      = "dev-terraform"
     aws_profile = "dev_admin"
-    key         = "base_infra"
+    key         = "base_infra.tfstate"
     region      = "eu-west-1"
   }
 }
@@ -10,7 +10,7 @@ terraform {
 module "vpc" {
   # "proxy" vpc module that exposes only minimal config possibilities for each
   # environment root module
-  source = "../modules/vpc"
+  source = "../../modules/vpc"
   # we can also reference the module by git tag if different environments need
   # different version of the module
   #  git::https://example.com/vpc.git?ref=v1.2.0
