@@ -72,29 +72,29 @@ Based on advice from https://github.com/antonbabenko/terraform-best-practices/tr
 ├── app1
 │   ├── dev
 │   │   └── dev-app1.tf
-│   ├── modules
-│   │   └── app1-service
-│   │       └── main.tf
 │   └── prod
 │       └── prod-app1.tf
-└── infrastructure
-    ├── dev
-    │   ├── dev-infra.tf
-    │   ├── outputs.tf -> ../root-module-shared/outputs.tf
-    │   ├── providers.tf -> ../root-module-shared/providers.tf
-    │   └── versions.tf -> ../root-module-shared/versions.tf
-    ├── modules
-    │   └── vpc
-    │       └── main.tf
-    ├── prod
-    │   ├── outputs.tf -> ../root-module-shared/outputs.tf
-    │   ├── prod-infra.tf
-    │   ├── providers.tf -> ../root-module-shared/providers.tf
-    │   └── versions.tf -> ../root-module-shared/versions.tf
-    └── root-module-shared
-        ├── outputs.tf
-        ├── providers.tf
-        └── versions.tf
+├── infrastructure
+│   ├── dev
+│   │   ├── dev-infra.tf
+│   │   ├── outputs.tf -> ../root-module-shared/outputs.tf
+│   │   ├── providers.tf -> ../root-module-shared/providers.tf
+│   │   └── versions.tf -> ../root-module-shared/versions.tf
+│   ├── prod
+│   │   ├── outputs.tf -> ../root-module-shared/outputs.tf
+│   │   ├── prod-infra.tf
+│   │   ├── providers.tf -> ../root-module-shared/providers.tf
+│   │   └── versions.tf -> ../root-module-shared/versions.tf
+│   └── root-module-shared
+│       ├── outputs.tf
+│       ├── providers.tf
+│       └── versions.tf
+└── modules
+    ├── app1-service
+    │   └── main.tf
+    └── vpc
+        └── main.tf
+
 ```
 
 ### Changing between environments ###
@@ -105,3 +105,10 @@ terraform init # not needed every time
 terraform plan
 terraform apply
 ```
+
+`terraform init`, `terraform plan` and `terraform apply` need to be run in following directories:
+
+- `infrastructure/dev`
+- `infrastructure/prod`
+- `app1/dev`
+- `app1/prod`
